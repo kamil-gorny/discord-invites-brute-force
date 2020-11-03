@@ -2,10 +2,22 @@ import socket
 import ssl 
 import itertools
 import select
-from os import argv
+from sys import argv
 from  lxml import html
+from selenium import webdriver
 
-script, method = argv
+
+def main():
+    script, method = argv
+    if(method=='socket_method'):
+        socket_method()
+    elif(method=='selenium_method'):
+        selenium_method()
+    else:
+        print('Niepoprawna nazwa methody')
+        exit()
+
+
 
 def socket_method():
     target_host = "www.discord.com"
@@ -59,4 +71,4 @@ def parse_server_name(response_line, link):
     server_name = " ".join(html.fromstring(response_line).xpath('//@content')[0].split(" ")[2:-2])
     print(f"Nazwa serwera: {server_name}\tAdres: www.discord.com/invite/{link}")
 
-socket_method()
+main()
